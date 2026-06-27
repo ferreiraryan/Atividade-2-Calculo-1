@@ -90,6 +90,7 @@ return np.array(pontos).T
 
 ### 3. `letra_c.py` (Dupla)
 
+```
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -137,4 +138,4 @@ def main():
     plt.show()
 
 main()
-
+```
