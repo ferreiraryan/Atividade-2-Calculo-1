@@ -1,23 +1,47 @@
 import numpy as np
-from figura_base import FiguraBase
+import matplotlib.pyplot as plt
 
-class LetraC(FiguraBase):
-    def __init__(self, p_superior: tuple, p_inferior: tuple):
-        """
-        Conforme o PDF, recebe apenas 2 pontos da extremidade direita 
-        e deve deduzir os outros 3 pontos à esquerda para formar o 'C'.
-        """
-        self.p_superior = p_superior
-        self.p_inferior = p_inferior
+def letra_c(p1, p5):
+    x_sup, y_sup = p1
+    x_inf, y_inf = p5
 
-    def obter_matriz_pontos(self) -> np.ndarray:
-        # PESSOA A (Matemática e Lógica Geométrica):
-        # TODO: Descobrir o comprimento x e y (distância/delta)
-        # TODO: Deduzir os pontos P2, P3 e P4 que formam as costas do "C".
-        # Dica: O P3 (meio) geralmente tem o Y no ponto médio entre p_superior e p_inferior
-        
-        # PESSOA B (Estrutura e Montagem):
-        # TODO: Validar se a entrada faz sentido 
-        # TODO: Organizar a ordem de plotagem correta (P1 -> P2 -> P3 -> P4 -> P5) 
-        # TODO: Retornar a matriz via np.array().T
-        pass
+    altura = y_sup - y_inf
+    largura = altura * 0.5
+
+    x_esq = x_sup - largura
+    y_med = (y_sup + y_inf) / 2
+
+    P1 = (x_sup, y_sup)
+    P2 = (x_esq, y_sup)
+    P3 = (x_esq, y_med)
+    P4 = (x_esq, y_inf)
+    P5 = (x_sup, y_inf)
+
+    pontos = [P1, P2, P3, P4, P5]
+
+    return np.array(pontos).T
+
+
+def main():
+    A = int(input("PONTO X do P1: "))
+    B = int(input("PONTO Y do P1: "))
+    C = int(input("PONTO X do P5: "))
+    D = int(input("PONTO Y do P5: "))
+
+    C1 = (A, B)
+    C2 = (C, D)
+
+    pontos = letra_c(C1, C2)
+
+    x = pontos[0]
+    y = pontos[1]
+
+    plt.plot(x, y, marker='o', linestyle='-', color='blue')
+    plt.title("Gráfico com pontos")
+    plt.xlabel("Eixo X")
+    plt.ylabel("Eixo Y")
+    plt.grid(True)
+    plt.axis('equal')
+    plt.show()
+
+main()
