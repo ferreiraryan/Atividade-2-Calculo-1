@@ -90,54 +90,51 @@ return np.array(pontos).T
 
 ### 3. `letra_c.py` (Dupla)
 
-**Entrada:** 2 pontos da abertura à direita:
+import numpy as np
+import matplotlib.pyplot as plt
 
-- `P1`: ponto superior
-- `P5`: ponto inferior
+def letra_c(p1, p5):
+    x_sup, y_sup = p1
+    x_inf, y_inf = p5
 
-**Tarefas:**
+    altura = y_sup - y_inf
+    largura = altura * 0.5
 
-1. Definir a largura (eixo X) a partir da altura:
+    x_esq = x_sup - largura
+    y_med = (y_sup + y_inf) / 2
 
-```text
-altura = y_superior - y_inferior
-```
+    P1 = (x_sup, y_sup)
+    P2 = (x_esq, y_sup)
+    P3 = (x_esq, y_med)
+    P4 = (x_esq, y_inf)
+    P5 = (x_sup, y_inf)
 
-2. Encontrar o ponto médio da "costa" esquerda (eixo Y).
+    pontos = [P1, P2, P3, P4, P5]
 
-3. Deduzir os três pontos restantes:
+    return np.array(pontos).T
 
-- Canto superior esquerdo (`P2`)
-- Meio esquerdo (`P3`)
-- Canto inferior esquerdo (`P4`)
 
-4. Organizar o traçado na ordem:
+def main():
+    A = int(input("PONTO X do P1: "))
+    B = int(input("PONTO Y do P1: "))
+    C = int(input("PONTO X do P5: "))
+    D = int(input("PONTO Y do P5: "))
 
-```text
-P1 → P2 → P3 → P4 → P5
-```
+    C1 = (A, B)
+    C2 = (C, D)
 
-> Não é necessário fechar a figura retornando para `P1`.
+    pontos = letra_c(C1, C2)
 
-**Saída:**
+    x = pontos[0]
+    y = pontos[1]
 
-```python
-return np.array(pontos).T
-```
+    plt.plot(x, y, marker='o', linestyle='-', color='blue')
+    plt.title("Gráfico com pontos")
+    plt.xlabel("Eixo X")
+    plt.ylabel("Eixo Y")
+    plt.grid(True)
+    plt.axis('equal')
+    plt.show()
 
----
+main()
 
-## 🚀 Como testar
-
-Para validar se o módulo está funcionando, execute:
-
-```bash
-python main.py
-```
-
-Se o código estiver correto, uma janela do **Matplotlib** será aberta renderizando a figura.
-
-Caso o script exiba um **[Aviso]**, significa que:
-
-- a classe ainda contém `pass`; ou
-- o contrato definido por `FiguraBase` foi quebrado.
